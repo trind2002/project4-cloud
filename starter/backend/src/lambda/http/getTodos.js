@@ -10,7 +10,7 @@ export const handler = middy()
   .use(httpErrorHandler())
   .use(cors({ credentials: true }))
   .handler(async (event) => {
-    console.log('GET TODOS EVENT...', event);
+    logger.info('Get list todos in database')
     const userId = getUserId(event);
     const items = await getTodos(userId);
 

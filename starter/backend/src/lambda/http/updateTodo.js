@@ -12,7 +12,7 @@ export const handler = middy()
   .handler(async (event) => {
     const body = event.body
 
-    logger.info('Update with event body', body);
+    logger.info('Update Todo Item', body);
 
     const todoId = event.pathParameters['todoId']
     const userId = getUserId(event)
@@ -24,6 +24,6 @@ export const handler = middy()
     })
 
     return httpResponse({
-      message: 'Update success!'
+      message: 'Update Todo item was successed!'
     })
   })

@@ -15,5 +15,5 @@ export const handler = middy()
 
     await deleteTodo(userId, todoId);
 
-    return httpResponse({message: 'TODO item is removed'})
+    return httpResponse({message: `TODO-${todoId} was removed`})
   })

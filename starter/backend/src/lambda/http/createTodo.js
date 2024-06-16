@@ -21,7 +21,7 @@ export const handler = middy()
 
     const userId = getUserId(event)
 
-    logger.info('CREATING TODO PAYLOAD...', newTodo)
+    logger.info('Add new todo item: ', newTodo)
     const item = await createTodo(newTodo, userId)
 
     return httpResponse({item})
