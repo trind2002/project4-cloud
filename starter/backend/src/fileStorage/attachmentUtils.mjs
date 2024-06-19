@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk'
 import AWSXRay from 'aws-xray-sdk'
 import { logger } from '../auth/utils.mjs'
-import { BUCKET_NAME } from '../constants'
+import { BUCKET_NAME } from '../businessLogic/todos.mjs'
 
 const _XAWS = AWSXRay.captureAWS(AWS)
 const s3 = new _XAWS.S3({

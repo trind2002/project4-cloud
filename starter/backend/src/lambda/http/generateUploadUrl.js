@@ -7,7 +7,7 @@ import { RESPONSE_STATUS, httpResponse } from '../../auth/utils.mjs'
 // Return a presigned URL to upload a file for a TODO item with the provided id
 export const handler = middy()
   .use(httpErrorHandler())
-  .use(cors({ credentials: true }))
+  .use(cors({ origin: "*", credentials: true }))
   .handler(async (event) => {
     const todoId = event.pathParameters.todoId
     if (!todoId) {

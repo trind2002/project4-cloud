@@ -8,7 +8,7 @@ import { getUserId } from '../utils.mjs'
 // Update a TODO item with the provided id using values in the "updatedTodo" object
 export const handler = middy()
   .use(httpErrorHandler())
-  .use(cors({ credentials: true }))
+  .use(cors({ origin: "*", credentials: true }))
   .handler(async (event) => {
     const body = event.body
 

@@ -8,7 +8,7 @@ import { httpResponse, logger } from '../../auth/utils.mjs'
 // Implement creating a new TODO item
 export const handler = middy()
   .use(httpErrorHandler())
-  .use(cors({ credentials: true }))
+  .use(cors({ origin: "*", credentials: true }))
   .handler(async (event) => {
     const newTodo = JSON.parse(event.body)   
     // Check validation on body

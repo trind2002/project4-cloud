@@ -8,7 +8,7 @@ import { httpResponse } from '../../auth/utils.mjs'
 // Remove a TODO item by id
 export const handler = middy()
   .use(httpErrorHandler())
-  .use(cors({ credentials: true }))
+  .use(cors({ origin: "*", credentials: true }))
   .handler(async (event) => {
     const todoId = event.pathParameters['todoId'];
     const userId = getUserId(event);

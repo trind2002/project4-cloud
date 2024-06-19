@@ -5,11 +5,13 @@ service: serverless-todo-app
 plugins:
   - serverless-iam-roles-per-function
 
+frameworkVersion: '4'
+
 provider:
   name: aws
   runtime: nodejs20.x
   stage: ${opt:stage, 'dev'}
-  region: 'us-east-1'
+  region: ${opt:region, 'us-east-1'}
   environment:
       TODOS_TABLE: Todos-${self:provider.stage}
       TODOS_CREATED_AT_INDEX: CreatedAtIndex
@@ -121,6 +123,7 @@ resources:
           ResponseParameters:
             gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
             gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+            gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
           ResponseType: DEFAULT_4XX
           RestApiId:
             Ref: 'ApiGatewayRestApi'

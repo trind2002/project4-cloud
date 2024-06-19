@@ -1,7 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
-import { generateUUID } from '../businessLogic/todo.mjs'
-import { BUCKET_NAME, TABLE_NAME } from '../constants'
+import { BUCKET_NAME, TABLE_NAME, generateUUID } from '../businessLogic/todos.mjs'
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION
