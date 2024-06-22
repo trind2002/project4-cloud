@@ -8,22 +8,24 @@ import { getUserId } from '../utils.mjs'
 // Update a TODO item with the provided id using values in the "updatedTodo" object
 export const handler = middy()
   .use(httpErrorHandler())
-  .use(cors({ origin: "*", credentials: true }))
+  .use(cors({ credentials: true }))
   .handler(async (event) => {
-    const body = event.body
+    try {
+      const body = event.body
+      logger.info('Update Todo Item', body);
+      const todoId = event.pathParameters['todoId']
+      const userId = getUserId(event)
 
-    logger.info('Update Todo Item', body);
+      await updateTodo({
+        todoId,
+        userId,
+        ...JSON.parse(body)
+      })
 
-    const todoId = event.pathParameters['todoId']
-    const userId = getUserId(event)
-
-    await updateTodo({
-      todoId,
-      userId,
-      ...JSON.parse(body)
-    })
-
-    return httpResponse({
-      message: 'Update Todo item was successed!'
-    })
+      return httpResponse({
+        message: 'Update Todo item was successed!'
+      })
+    } catch (error) {
+      return httpResponseError(error)
+    }
   })

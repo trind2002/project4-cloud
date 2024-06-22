@@ -1,16 +1,16 @@
 {
   "unknown": {
     "versionSfCore": null,
-    "versionFramework": "4.1.4",
+    "versionFramework": "4.1.5",
     "isWithinCompose": false,
     "composeOrgName": null,
     "composeServiceName": null,
-    "command": [
-      "login"
-    ],
-    "options": {},
+    "command": [],
+    "options": {
+      "version": true
+    },
     "error": null,
-    "machineId": "f739daa363ea44e9edbde6c627fd8d2c",
+    "machineId": "6604ca308f9100330e98a5c0fb0e5c01",
     "serviceProviderAwsCfStackId": null,
     "serviceProviderAwsCfStackCreated": null,
     "serviceProviderAwsCfStackUpdated": null,

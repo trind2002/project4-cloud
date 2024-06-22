@@ -14,3 +14,7 @@ serverless deploy --stage dev --region us-east-1
 
 npm install -g serverless
 npm uninstall -g serverless
+
+npm install -g serverless@3.39.0
+
+sls deploy --stage dev --region us-east-1

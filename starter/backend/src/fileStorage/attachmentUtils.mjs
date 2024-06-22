@@ -1,19 +1,22 @@
-import AWS from 'aws-sdk'
-import AWSXRay from 'aws-xray-sdk'
+import {
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { logger } from '../auth/utils.mjs'
-import { BUCKET_NAME } from '../businessLogic/todos.mjs'
 
-const _XAWS = AWSXRay.captureAWS(AWS)
-const s3 = new _XAWS.S3({
-  signatureVersion: 'v4'
-})
+const s3Client = new S3Client();
+
+const bucketName = process.env.ATTACHMENT_S3_BUCKET
 
 export async function createAttachmentPresignedUrl(todoId) {
-  const url = s3.getSignedUrl('putObject', {
-    Bucket: BUCKET_NAME,
+  const command = new PutObjectCommand({
+    Bucket: bucketName,
     Key: todoId,
-    Expires: 3600
-  });
+  })
+  const url = await getSignedUrl(s3Client, command, {
+    expiresIn: 3600
+  })
 
   logger.info(`PresignedURL of todoId ${todoId} = ${url}`);
 

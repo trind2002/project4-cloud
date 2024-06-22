@@ -1,6 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
-import { BUCKET_NAME, TABLE_NAME, generateUUID } from '../businessLogic/todos.mjs'
+import { generateUUID } from '../businessLogic/todos.mjs'
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION
@@ -10,7 +10,7 @@ const documentClient = DynamoDBDocument.from(client)
 
 export const getTodos = async (userId) => {
   const params = {
-    TableName: TABLE_NAME,
+    TableName: process.env.TODOS_TABLE,
     IndexName: 'CreatedAtIndex',
     KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
@@ -30,13 +30,13 @@ export const createTodo = async (payload, userId) => {
     todoId: uuid,
     name,
     dueDate,
-    attachmentUrl: `https://${BUCKET_NAME}.s3.amazonaws.com/${uuid}`,
+    attachmentUrl: `https://${process.env.ATTACHMENT_S3_BUCKET}.s3.amazonaws.com/${uuid}`,
     done: false,
     createdAt: new Date().toISOString()
   }
 
   var params = {
-    TableName: TABLE_NAME,
+    TableName: process.env.TODOS_TABLE,
     Item: item
   }
 
@@ -46,7 +46,7 @@ export const createTodo = async (payload, userId) => {
 
 export const getTodo = async (userId, todoId) => {
   var params = {
-    TableName : TABLE_NAME,
+    TableName : process.env.TODOS_TABLE,
     Key: {      
       userId,
       todoId,
@@ -69,7 +69,7 @@ export const updateTodo = async (payload) => {
   }
 
   var params = {
-    TableName: TABLE_NAME,
+    TableName: process.env.TODOS_TABLE,
     Item: item
   }
 
@@ -78,7 +78,7 @@ export const updateTodo = async (payload) => {
 
 export const deleteTodo = async (userId, todoId) => {
     var params = {
-      TableName : TABLE_NAME,
+      TableName : process.env.TODOS_TABLE,
       Key: {
         userId,
         todoId,

@@ -20,7 +20,22 @@ export const RESPONSE_STATUS = {
 
 export function httpResponse(data, status = RESPONSE_STATUS.SUCCESS) {
   return {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true
+    },
     statusCode: status,
     body: JSON.stringify(data)
+  }
+}
+
+export function httpResponseError(error) {
+  return {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true
+    },
+    statusCode: RESPONSE_STATUS.SERVER_ERROR,
+    body: JSON.stringify({ Error: error }),
   }
 }
