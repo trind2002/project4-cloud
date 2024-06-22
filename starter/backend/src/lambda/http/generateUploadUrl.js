@@ -17,7 +17,7 @@ export const handler = middy()
 
       const uploadUrl = await createAttachmentPresignedUrl(todoId);
 
-      return httpResponse(uploadUrl, RESPONSE_STATUS.SUCCESS);
+      return httpResponse({ uploadUrl }, RESPONSE_STATUS.SUCCESS);
     } catch (error) {
       return httpResponseError(error)
     }
