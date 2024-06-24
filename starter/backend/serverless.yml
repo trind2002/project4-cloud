@@ -17,6 +17,9 @@ provider:
       ATTACHMENT_S3_BUCKET: mybuckettodos2006
   logs:
     restApi: false
+  tracing:
+    lambda: true
+    apiGateway: true
 
 functions:
   Auth:
@@ -213,3 +216,11 @@ resources:
                 - s3:PutObject
               Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
         Bucket: !Ref ImagesBucket
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: "request-body-validator"
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false

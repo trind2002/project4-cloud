@@ -1,3 +1,4 @@
+import AWSXRay from 'aws-xray-sdk-core'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
 import { generateUUID } from '../businessLogic/todos.mjs'
@@ -6,7 +7,8 @@ const client = new DynamoDBClient({
   region: process.env.AWS_REGION
 })
 
-const documentClient = DynamoDBDocument.from(client)
+const dynamoDbXRay = AWSXRay.captureAWSv3Client(client)
+const documentClient = DynamoDBDocument.from(dynamoDbXRay)
 
 export const getTodos = async (userId) => {
   const params = {
