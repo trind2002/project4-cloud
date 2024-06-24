@@ -30,7 +30,7 @@ export const createTodo = async (payload, userId) => {
     todoId: uuid,
     name,
     dueDate,
-    attachmentUrl: `https://${process.env.ATTACHMENT_S3_BUCKET}.s3.amazonaws.com/${uuid}`,
+    attachmentUrl: `https://${process.env.ATTACHMENT_S3_BUCKET}.s3.us-east-1.amazonaws.com/${uuid}`,
     done: false,
     createdAt: new Date().toISOString()
   }

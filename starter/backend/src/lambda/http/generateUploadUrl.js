@@ -9,16 +9,12 @@ export const handler = middy()
   .use(httpErrorHandler())
   .use(cors({ credentials: true }))
   .handler(async (event) => {
-    try {
-      const todoId = event.pathParameters.todoId
+    const todoId = event.pathParameters.todoId
       if (!todoId) {
         return httpResponse({ message: 'Please provide todoId!' }, RESPONSE_STATUS.BAD_REQUEST);
       }
 
       const uploadUrl = await createAttachmentPresignedUrl(todoId);
 
-      return httpResponse({ uploadUrl }, RESPONSE_STATUS.SUCCESS);
-    } catch (error) {
-      return httpResponseError(error)
-    }
+      return httpResponse({uploadUrl}, RESPONSE_STATUS.SUCCESS);
   })
